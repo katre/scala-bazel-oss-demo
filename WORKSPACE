@@ -1,15 +1,18 @@
-
 workspace(name = "koboshi")
-rules_scala_version="4666a7e4efa6f7c9eaedf10863af23ce184111d3" # update this as needed
+rules_scala_version="7522c866450cf7810eda443e91ff44d2a2286ba1" # update this as needed
 
 http_archive(
              name = "io_bazel_rules_scala",
-             url = "https://github.com/wix/rules_scala/archive/%s.zip"%rules_scala_version,
+             url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip"%rules_scala_version,
              type = "zip",
              strip_prefix= "rules_scala-%s" % rules_scala_version
-)
+             )
+
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 scala_repositories()
+load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
+scala_register_toolchains()
+
 load("@io_bazel_rules_scala//specs2:specs2_junit.bzl","specs2_junit_repositories")
 specs2_junit_repositories()
 
